@@ -1,0 +1,19 @@
+{
+  "name": "express-js",
+  "version": "1.0.0",
+  "description": "Express js for npm",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Kiran",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}

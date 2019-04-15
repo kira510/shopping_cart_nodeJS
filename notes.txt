@@ -1,0 +1,42 @@
+Express js is all about middleware.
+These are the steps between req and response.
+
+
+How to use express.js
+const app = express();
+
+app.use((req, res, next) => {
+    console.log('in middleware');
+    next(); //takes to next app.use callback function
+});
+
+
+This is the app that needs to be passed into http.createServer(app);
+
+
+app.get --> same as app.use
+app.post, put, patch, delete can be used to filter the type of method
+
+note that: use will not do an exact match but get, post will do
+
+
+
+Express concepts: All about middleware
+1. importing and creating a server
+2. adding and managing different routes using app.use
+3. difference between app.get and app.use
+4. using the body parser
+5. using the express Router, express.Router
+6. Adding an error page for /skndks
+7. All routes have same satrting can be split where there are registered,
+   eg: app.use('/admin', adminRoutes);
+8. Using path to add html pages to the route
+9. Adding a utility path method path.dirname(process.mainModule.filename);
+
+
+
+Path.join
+This has to be used to contruct the path instead of using / or \ cause This
+detects the operation system and creates the path acordingly hence works on
+windows, linux and mac.
+__dirname gives the current directory.
