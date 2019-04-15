@@ -32,6 +32,7 @@ Express concepts: All about middleware
    eg: app.use('/admin', adminRoutes);
 8. Using path to add html pages to the route
 9. Adding a utility path method path.dirname(process.mainModule.filename);
+10. Serving static files using app.use(express.static(path.join(__dirname, 'public')));
 
 
 
