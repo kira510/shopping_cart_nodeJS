@@ -41,3 +41,10 @@ This has to be used to contruct the path instead of using / or \ cause This
 detects the operation system and creates the path acordingly hence works on
 windows, linux and mac.
 __dirname gives the current directory.
+
+
+Secyion 6: Adding Dynamic content
+1. First approch: adding in constants, problem is that when you do this,
+   and open the same url in two differnt browsers, the constant will be the same which should never happen
+2. Templating engines:
+        npm install --save ejs pug express-handlebars
