@@ -48,3 +48,9 @@ Secyion 6: Adding Dynamic content
    and open the same url in two differnt browsers, the constant will be the same which should never happen
 2. Templating engines:
         npm install --save ejs pug express-handlebars
+3. app.set is used to set values globally.
+4. Use app.set to add "view engine" and "views" to the express project.
+5. now you can use res.render instead of res.sendFile . Just like React
+
+
+Section 7: MVC
