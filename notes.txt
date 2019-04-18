@@ -53,4 +53,10 @@ Secyion 6: Adding Dynamic content
 5. now you can use res.render instead of res.sendFile . Just like React
 
 
-Section 7: MVC
+Section 8: Dynamic routing (cool section)
+1. We navidate to details of a product using <form action="/product/<%= product.id %>
+   Then we capture this usin, router.get('/products/:productId') and display the details,
+   access it using , req.params.productId
+2. When you click on add to cart, i send back the id of product as an value, how?
+   <input type="hidden" name="productId" value=<%= product.id %> > , access it using,
+   req.body.productId
