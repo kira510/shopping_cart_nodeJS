@@ -60,3 +60,17 @@ Section 8: Dynamic routing (cool section)
 2. When you click on add to cart, i send back the id of product as an value, how?
    <input type="hidden" name="productId" value=<%= product.id %> > , access it using,
    req.body.productId
+3. Passing query params, url that is after ?edit=true& so on. Access using "req.query.edit".
+   Aint this awesome.
+
+Section 9: SQL introduction
+1. SQL: structured query language. They have tables that have one-one, one-many, many-many relations.
+   They are defined through a schema. Queries are commands to perform data operations.
+2. NoSQL tables are called collections which contain documents. No table has a schema,
+   Just store data in JSON fromat, has duplicate data stored.
+
+Section 12
+1. We have finsihed using NoSQL -> mongodb which is really good.
+2. Works based on asynchronous then and catch methods. We basically created a db in the clousd and then
+   acessed it in our local using mongodb compass.
+3. Code is pretty easy to use

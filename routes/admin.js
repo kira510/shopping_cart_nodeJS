@@ -22,5 +22,3 @@ router.post('/edit-product', adminController.postEditProduct);
 router.post('/delete-product', adminController.postDeleteProduct);
 
 module.exports = router;
-
-// note that router.get also does the same job as use
