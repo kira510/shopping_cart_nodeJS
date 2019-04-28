@@ -78,3 +78,25 @@ Section 12
 
 Section 13 Mongoose
 1. Just an warpper to help us write the database read write easier.
+
+Section 15: Authentication
+1. We use a package called bcryptjs which is used to encrypt the password.
+   It has a method called hash that takes two param, one is the item to be decrypted and other
+   is the salt value. Bigger the salt value, longer it takes to generate the encrypted password.
+   It is asynchronous hence returns a promise.
+2. CSRF Attacks
+   Stands for "Cross-Site-Request-Forgery"
+   Lets say you opened a link from your email when your session is still active on your app, so
+   lest say your app is the one that you use to send money.
+   Now you are sending money to a guy called B but in background, this information is used to send money
+   to C. Looks like user did it but invisible to him.
+   So we must ensure that ppl working with our views are using its own session.
+   Hence we use CSRF Token.
+   npm install --save csurf
+
+   This package provides a method on req, which is csrfToken, 'req.csrfToken()' .
+   Adding csrfProtection will make your app fail on any post request due to the absence of it.
+3. Connect-flash
+   npm install --save connect-flash
+   flash is used to pass variables with particular request only. See the code peacefully to understand.
+   It aint that completed.
