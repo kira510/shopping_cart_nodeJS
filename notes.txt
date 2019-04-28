@@ -100,3 +100,16 @@ Section 15: Authentication
    npm install --save connect-flash
    flash is used to pass variables with particular request only. See the code peacefully to understand.
    It aint that completed.
+
+Section 16: Sending Mails
+1. In Real world, no one builds their own mail server for their application as its super complex.
+   Hence we use a mailserver that already existing. For example: send-grid
+2. packages to install,
+   npm install --save nodemailer nodemailer-sendgrid-transport
+3. nodemailer is to help sending mails, and nodemailer-sendgrid-transport to connect to send-grid
+4. you can use username and password here too
+   https://nodemailer.com/about/
+   using nodemailer, you can configure a mail server host and stuff inside createTransport
+   here we are suing sendgrid package to connect to sendgrid. Awesome!
+5. Nodemailer Official Docs: https://nodemailer.com/about/
+   SendGrid Official Docs: https://sendgrid.com/docs/

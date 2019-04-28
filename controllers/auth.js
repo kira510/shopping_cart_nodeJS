@@ -1,5 +1,17 @@
 const User = require('../models/user');
+const nodeMailer = require('nodemailer');
+const sendGridTransport = require('nodemailer-sendgrid-transport');
 const bcrypt = require('bcryptjs');
+
+// you can use username and password here too
+// https://nodemailer.com/about/
+// using nodemailer, you can configure a mail server host and stuff inside createTransport
+// here we are suing sendgrid package to connect to sendgrid. Awesome!
+const transporter = nodeMailer.createTransport(sendGridTransport({
+  auth: {
+    api_key: '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'
+  }
+}));
 
 exports.getLogin = (req, res, next) => {
   // req.flash('error'); returns an empty array [].
@@ -82,7 +94,15 @@ exports.postSignup = (req, res, next) => {
       })
       .then(result => {
         res.redirect('/login');
-      });                         // read notes to know more
+        return transporter.sendMail({
+          to: email,
+          from: 'shop@nodeshoppingcart.com',
+          subject: 'Signup Succeded!',
+          html: '<h1>You are successfully signed up!</h1>'
+        });
+      }).catch(err => {
+        console.log(err);
+      });
     })
     .catch(err => { console.log(err); });
 };
