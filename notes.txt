@@ -115,7 +115,7 @@ Section 16: Sending Mails
    SendGrid Official Docs: https://sendgrid.com/docs/
 
 
-Section 17: Validation
+Section 18: Validation
 1. Express Validator:
    => npm install --save express-validator
         * check('email').isEmail() looks for name="email" value and checks if its an email
@@ -133,3 +133,31 @@ Section 17: Validation
 2. Sanitizing
    How you want to access the valid data enetered by the user.
    Eg: normalizing email into all small letters, removing whitespace . etc (normalize and trim respectively)
+
+Section 19: Errors
+1. Types of errors
+   a) Technical error: eg: Mongo server down (show error page to user).
+   b) Expected errors: database connection or file upload failed (inform user).
+   c) Bugs/Logical errors: eg: user object accessed when it doesn't exist (fix during dev).
+
+2. Errors can be thrown or not thrown.
+   When thrown we can catch them by try catch block in synchronous code and by then catch block in asynchronous
+   The ones that are not thrown must be validated on the values we recieve, throw error based on that or
+   directly handle error.
+
+3. Error middleware
+   This is a special middleware.
+   When you call "return next(error);" , the middleware starting with error as param gets automatically called.
+   This is a feature of express js, if you are wondering which method that is then,
+       app.use((err, req, res, next) => {
+        res.redirect('/500');
+       });
+
+4. Errors
+   2xx => successful
+   3xx => redirect
+   4xx => client side error
+   5xx => server-side error
+
+   Sending an appropriate code tells the browser what went wrong. Setting status code does not mean that
+   the app has crashed or incomplete.
