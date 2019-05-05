@@ -113,3 +113,23 @@ Section 16: Sending Mails
    here we are suing sendgrid package to connect to sendgrid. Awesome!
 5. Nodemailer Official Docs: https://nodemailer.com/about/
    SendGrid Official Docs: https://sendgrid.com/docs/
+
+
+Section 17: Validation
+1. Express Validator:
+   => npm install --save express-validator
+        * check('email').isEmail() looks for name="email" value and checks if its an email
+        * This returns an error if there is a failure which can be extracted in the controller
+        * by validationResult from express-validator/check .
+        *
+        * Adding with message overrides the default msg from errors.array()[0].msg (see controller).
+        * Custom function to write your own check. You must return if test succeded otherwise return false or throw error.
+        *
+        * body: same as check, we can instead of writing withMessage each time , we can simply pass this as
+        * second argument as shown in /signup post.
+        *
+        * For asyn calls, in custom method as you can see, the expressvalidator waits for the user
+        * completion of the promise and then evaluates the result.
+2. Sanitizing
+   How you want to access the valid data enetered by the user.
+   Eg: normalizing email into all small letters, removing whitespace . etc (normalize and trim respectively)
