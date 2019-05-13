@@ -161,3 +161,19 @@ Section 19: Errors
 
    Sending an appropriate code tells the browser what went wrong. Setting status code does not mean that
    the app has crashed or incomplete.
+
+
+SECTION 20: FILE UPLOAD AND DOWNLOAD
+1. Bodyparser urlencoded basically converts all the form data into text. The request content type in this
+   case will be application/x-www-form-urlencoded (default) and we can see in network tab that image will be empty
+   as uploaded image cannot be converted to text.
+2. Bodyparser does not provide any method to manage multipart/form-data type so we need to install a package
+   called MULTER
+   => npm install --save MULTER
+3. app.use(multer({dest: 'images'}).single('image'));
+   This is a simple way to use multer to get the single image from form submit and store in images directory.
+4. Files must be downloaded and served as a stream instead of entire data for performance and to avoid memory
+   leaks.
+5. Statically define the place where you can store the file,
+    app.use('/images', express.static(path.join(__dirname, 'images')));
+   Basically when you call /images/bla-bla , it looks in the images directory.
