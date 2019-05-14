@@ -177,3 +177,7 @@ SECTION 20: FILE UPLOAD AND DOWNLOAD
 5. Statically define the place where you can store the file,
     app.use('/images', express.static(path.join(__dirname, 'images')));
    Basically when you call /images/bla-bla , it looks in the images directory.
+
+SECTION 21: Pagination
+1. We need not explitly write an api to mange this, mongodb itslef provides with skip and limit method to skip some items and
+   the limit the api call.
