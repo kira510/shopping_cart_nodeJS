@@ -181,3 +181,15 @@ SECTION 20: FILE UPLOAD AND DOWNLOAD
 SECTION 21: Pagination
 1. We need not explitly write an api to mange this, mongodb itslef provides with skip and limit method to skip some items and
    the limit the api call.
+
+SECTION 22: Async requests
+1. In this module, we add a js file on client side(browser) to delete the product without reloading the page.
+2. We use the http verb DELETE (which is like post or get) to handle this request and we send json data
+   in req and res. See /js/admin.js
+3. Some dom manipulation tricks:
+   a) select based on the name parameter
+        var x = document.querySelector('[name=prodId]');
+   b) Deleting an element
+        x.parentNode.removeChild(x);
+   c) Selecting closest ancestor
+       x.closest('article');
