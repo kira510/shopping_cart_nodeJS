@@ -103,6 +103,32 @@ exports.getCart = (req, res, next) => {
     });
 };
 
+exports.getCheckout = (req, res, next) => {
+  req.user
+    .populate('cart.items.productId')
+    .execPopulate()
+    .then(user => {
+      const products = user.cart.items;
+      let totalPrice = 0;
+
+      products.forEach(product => {
+        console.log(product)
+        totalPrice+= product.productId.price;
+      })
+      res.render('shop/checkout', {
+        path: '/cart',
+        pageTitle: 'Checkout',
+        products: products,
+        totalPrice: totalPrice
+      });
+    })
+    .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
+};
+
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId;
   Product.findById(prodId)

@@ -193,3 +193,9 @@ SECTION 22: Async requests
         x.parentNode.removeChild(x);
    c) Selecting closest ancestor
        x.closest('article');
+
+SECTION 23:
+  1. Instructor used stripe to make the payment but i could not do so since the accept payment is not
+     available anymore on stripe.
+  2. Pretty staright forward so dont worry.
+  3. Just added a checkout page that redirects to create invoice.
