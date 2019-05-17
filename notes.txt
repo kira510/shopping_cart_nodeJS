@@ -199,3 +199,44 @@ SECTION 23:
      available anymore on stripe.
   2. Pretty staright forward so dont worry.
   3. Just added a checkout page that redirects to create invoice.
+
+SECTION 24: REST API
+1. Representational state transfer (REST): Transfer data instead of user interfaces.
+2. Response Data formats:
+        a. html: difficult to parse
+        b. Plain text: difficult to parse
+        c. XML: Extensible markup lang, HTML is special type of XML (machine readable but relatively verbose)
+        d. JSON: Javascript Object Notation (machine readable and concise)
+3. Rest API endpoint:
+   A combination of the HTTP method and the path.
+   Ex: POST /posts/:postId
+4. HTTP methods
+   a) GET: get resource from server
+   b) POST: post resource to a server (create pr append to existing)
+   c) PUT: put resource to server (create or overwirte)
+   d) PATCH: update parts of existing resource
+   e) DELETE: delete resource
+   f) OPTIONS: determine whether follow up request is allowed.
+5. REST principles:
+   a) Unifrom interface: endpoints, request and response must be defined properly, ie what the request needs and what response we get.
+   b) Stateless Interactions: No connection history between client and server (like session), each req is handled separately.
+   c) cachable: servers may set cache headers to llow client to cache responses
+   d) client-server: client is not concerned with sever and its persistant data storage
+   e) Layered System: Server may forward requests to other APIs
+   f) Code on demand: executable code can be transferred from server to client (very rare in real world).
+6. CORS issue
+   Cross origin resource sharing
+   When we try to send a request form one domain to another, the domain will not accept the response.
+   This is a security measure do wee need to set headers in the middleware
+        res.setHeader('Access-Control-Allow-Origin', '*');//allow all
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST , PUT, PATCH, DELETE');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    If you dont allow headers then you can send s request with content-type header. Sweet.
+7. Last but not least: Two requests sent for one post? WTH?
+   Yes the first request sent from browser is of type OPTIONS which basically the post request to be sent
+   has the actual post method allowed. If it is not allowed then it throws an error. If it is allowed then
+   it sends another req with method post and gets the response. If you wondering, the Access-Control-Allow-Methods
+   is responsible for this!
+   This is a mechanism built into browser for some reason i still dont know.
+8. REFERENCE Code
+    https://github.com/kira510/JS_EXMAPLES/tree/master/express-rest-api
