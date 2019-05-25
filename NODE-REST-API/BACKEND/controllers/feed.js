@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator/check');
 const Post = require('../models/post');
+const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
 
@@ -41,21 +42,27 @@ exports.createPost = (req, res, next) => {
   const title = req.body.title;
   const content = req.body.content;
   const imageUrl = req.file.path;
+  let creator;
 
   // Create post in db
   const post = new Post({
     title: title,
     imageUrl: imageUrl,
     content: content,
-    creator: {
-      name: 'kk'
-    }
+    creator: req.userId
   });
 
   post.save().then(result => {
+    return User.findById(req.userId);
+  }).then(user => {
+    creator = user;
+    user.posts.push(post);
+    return user.save();
+  }).then(result => {
     res.status(201).json({
       message: 'Post created successfully!',
-      post: result
+      post: post,
+      creator: {id: creator._id, name: creator.name}
     });
   }).catch(err => {
     if (!err.statusCode) {
@@ -109,8 +116,6 @@ exports.updatePost = (req, res, next) => {
     throw err;
   }
 
-  console.log('result isssssssssss', imageUrl);
-
   Post.findById(postId)
     .then(post => {
       if (!post) {
@@ -118,6 +123,13 @@ exports.updatePost = (req, res, next) => {
         err.statusCode = 404;
         throw err;
       }
+
+      if (post.creator.toString() !== req.userId) {
+        const err =  new Error('Not authorised!');
+        err.statusCode = 404;
+        throw err;
+      }
+
       if (post.imageUrl !== imageUrl) {
         clearImage(post.imageUrl);
       }
@@ -145,8 +157,19 @@ exports.deletePost = (req, res, next) => {
         throw err;
       }
 
+      if (post.creator.toString() !== req.userId) {
+        const err =  new Error('Not authorised!');
+        err.statusCode = 404;
+        throw err;
+      }
+
       clearImage(post.imageUrl);
       return Post.findByIdAndRemove(postId);
+    }).then((result) => {
+      return User.findById(req.userId);
+    }).then(user => {
+      user.posts.pull(postId); //method given by mongoose to remove an item
+      return user.save();
     }).then(result => {
       res.status(200).json({message: 'Removed post successfully'});
     }).catch(err=> {

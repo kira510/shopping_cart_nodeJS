@@ -50,7 +50,11 @@ class Feed extends Component {
       page--;
       this.setState({ postPage: page });
     }
-    fetch('http://localhost:8080/feed/posts?page=' + page)
+    fetch('http://localhost:8080/feed/posts?page=' + page, {
+      headers: {
+        Authorization: 'Barer ' + this.props.token
+      }
+    })
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Failed to fetch posts.');
@@ -127,7 +131,10 @@ class Feed extends Component {
     // formData will automatically set the header to include mimetype
     fetch(url, {
       method: method,
-      body: formData
+      body: formData,
+      headers: {
+        Authorization: 'Barer ' + this.props.token
+      }
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
@@ -137,7 +144,7 @@ class Feed extends Component {
       })
       .then(resData => {
         const post = {
-          _id: resData.post.postId,
+          _id: resData.post._id,
           title: resData.post.title,
           content: resData.post.content,
           creator: resData.post.creator,
@@ -177,9 +184,13 @@ class Feed extends Component {
   };
 
   deletePostHandler = postId => {
+    debugger
     this.setState({ postsLoading: true });
     fetch('http://localhost:8080/feed/post/'+ postId, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Barer ' + this.props.token
+      }
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
