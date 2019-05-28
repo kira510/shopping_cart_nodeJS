@@ -283,3 +283,7 @@ SECTION 25: working with rest apis
             Authorization: 'Barer' + jwt_token
         }
     Barer is a convention used with jwt token to say it is of jwt but we may or may not use it.
+
+SECTION 26
+1.  Use async await to load posts. Async-await helps our JS to load async code as sync code.
+    Note that this must be surrounded by try catch
