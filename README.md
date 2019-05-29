@@ -284,6 +284,27 @@ SECTION 25: working with rest apis
         }
     Barer is a convention used with jwt token to say it is of jwt but we may or may not use it.
 
-SECTION 26
+SECTION 26: Async await with JS
 1.  Use async await to load posts. Async-await helps our JS to load async code as sync code.
     Note that this must be surrounded by try catch
+
+SECTION 27: websockets and socket.io
+1.  In node js app,
+        => npm install --save socket.io
+    socket io is a websocket, which is a protocol or library used to build wed services.
+    It is built on the http of the npm, hence requires node server to passed as an arg.
+
+    In client side,
+        => npm install --save socket.io-client
+
+    In server side, when we create a request, i basically want to inform all the logged in users,
+    through the socket connection.
+    We can use either broadcast or emit, broadcast sends to all other users except the one from which
+    post was created meanwhile emit sends to everyone.
+
+    We are using emit instead of sending response to update the client side from which the request was made.
+
+    Points to remember:
+    They are built on HTTP, established by HTTP handshake so you need running http server. So socket also starts a server that uses this http server.
+2.  Learn more:
+        https://socket.io/docs/

@@ -3,14 +3,15 @@ const Post = require('../models/post');
 const User = require('../models/user');
 const fs = require('fs');
 const path = require('path');
+const io = require('../socket');
 
 exports.getPosts = async (req, res, next) => {
   const currentPage = req.query.page || 1;
   const perPage = 2;
   try {
     let totalItems = await Post.find().countDocuments();
-    const posts = await Post.find().skip((currentPage-1)*perPage)
-        .limit(perPage);
+    const posts = await Post.find().populate('creator').skip((currentPage-1)*perPage)
+        .limit(perPage).sort({createdAt: -1});
 
     res.status(200).json({
       posts: posts,
@@ -57,6 +58,10 @@ exports.createPost = (req, res, next) => {
     user.posts.push(post);
     return user.save();
   }).then(result => {
+    io.getIO().emit('posts', {action: 'create', post: {
+      ...post._doc,
+      creator: {_id: req.userId, name: creator.name}
+    }});
     res.status(201).json({
       message: 'Post created successfully!',
       post: post,
@@ -114,7 +119,7 @@ exports.updatePost = (req, res, next) => {
     throw err;
   }
 
-  Post.findById(postId)
+  Post.findById(postId).populate('creator')
     .then(post => {
       if (!post) {
         const err =  new Error(`Product not found for ${postId}`);
@@ -122,7 +127,7 @@ exports.updatePost = (req, res, next) => {
         throw err;
       }
 
-      if (post.creator.toString() !== req.userId) {
+      if (post.creator._id.toString() !== req.userId) {
         const err =  new Error('Not authorised!');
         err.statusCode = 404;
         throw err;
@@ -136,6 +141,7 @@ exports.updatePost = (req, res, next) => {
       post.imageUrl = imageUrl;
       return post.save();
     }).then(result => {
+      io.getIO().emit('posts', {action: 'update', post:  result});
       res.status(200).json({message: 'Post updated successfully', post: result});
     }).catch(err=> {
       if (!err.statusCode) {
@@ -169,6 +175,7 @@ exports.deletePost = (req, res, next) => {
       user.posts.pull(postId); //method given by mongoose to remove an item
       return user.save();
     }).then(result => {
+      io.getIO().emit('posts', {action: 'delete', post: postId});
       res.status(200).json({message: 'Removed post successfully'});
     }).catch(err=> {
       if (!err.statusCode) {
