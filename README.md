@@ -308,3 +308,49 @@ SECTION 27: websockets and socket.io
     They are built on HTTP, established by HTTP handshake so you need running http server. So socket also starts a server that uses this http server.
 2.  Learn more:
         https://socket.io/docs/
+
+SECTION 28: GraphQL: finally the wait is over!
+1.  Good things always come in the end!
+2.  GraphQL is an alternate to using Rest api has it provides certain advantages.
+    Consider a scenario where you have a bunch of data and require a defferent elements from the
+    data each time.
+    The Rest api method will make you to probably write a lot of end points or a single end point with
+    a lot of query parameters.
+    Thats when our GraphQl comes to play.
+3.  In GraphQl we always send a POST request from the client which contains a query expression that defines
+    that should be returned.
+    We can also use subscriptions in graphql for real time data updates via sockets.
+4.  Operation types:
+    Query = retrieve data
+    Mutation = Manipulate data
+    Subscription = Setup a real time connection via websockets.
+
+    On the server side we have definitions for each of these operation types which are like routes and
+    resolvers contain the server side logic for each of these definitions like controller.
+5.  How it works?
+        a. its a normal node (+ Express) server
+        b. One single endpoint
+        c. Uses POST to retrieve data as request body defines the data to required
+        d. Server-side resolver analyses req body, fetches, preapres and returns data.
+6.  => npm install --save graphql express-graphql
+       graphql: used to defining the schema of the graphql service
+       express-graphql: simple server that parses the incoming requests
+7.  Validation
+    We initially used express validator but now we are using another package called validator.
+    => npm install --save validator
+8.  Things to learn:
+       a. Writing schema with rotquery and rootmutation
+       b. Adding validation in resolver function
+       c. Authentication (middleware executed before resolver)
+       d. Sending requests
+       e. try stuff on localhost:8080/graphql for testing
+
+    Please note we can send only JSON object with graphql and we cannot send other types like images.
+    For this, we use a rest api to store the iage and return the image url and then use graphql to store this data.
+9.  What is graphql
+    It is a stateless, client-independent API. Higher flexibility than REST API as they offer
+    custom query lnguage that is exposed to client.
+    Quries => GET
+    Mutation => POST, PUT, PATCH, DELETE
+
+    All graphql requests are directed to one endpoint(POST /graphql)
